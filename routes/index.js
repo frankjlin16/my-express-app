@@ -15,7 +15,8 @@ router.get('/topics', function (req, res, next) {
 
   var topics = TopicModel.find();
   res.render('topics', {
-    currentURL: '/topics'
+    currentURL: '/topics',
+    topics: topics
   })
 });
 
