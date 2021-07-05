@@ -13,15 +13,14 @@ var app = express();
 
 //Set up default mongoose connection
 var mongoDB = "mongodb+srv://admin:12345@blog.wcu8y.mongodb.net/main?retryWrites=true&w=majority";
-mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(mongoDB, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
-//Get default connection
-var db = mongoose.connection;
+var db = mongoose.connection; //Get default connection
 
-//Bind connection to error event
-db.on('error', console.error.bind(console, 'MongoDB connection error'));
-
-//TODO: Create models
+db.on('error', console.error.bind(console, 'MongoDB connection error')); //Bind connection to error event
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,7 +28,9 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,12 +38,12 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
