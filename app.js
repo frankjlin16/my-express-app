@@ -21,6 +21,8 @@ var db = mongoose.connection;
 //Bind connection to error event
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
+//TODO: Create models
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
