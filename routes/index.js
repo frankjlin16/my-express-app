@@ -20,7 +20,6 @@ router.get('/topics', function (req, res, next) {
       topics: topics
     })
   });
-
 });
 
 // Show new topic form
