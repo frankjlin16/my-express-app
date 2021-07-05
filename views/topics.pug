@@ -2,3 +2,6 @@ extends layout.pug
 
 block content 
   h1.text-center Topics
+  ul
+    each topic in topics
+      li= topic.topic
