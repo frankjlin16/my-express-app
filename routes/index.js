@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
 // Show all topics
 router.get('/topics', function (req, res, next) {
 
-  TopicModel.find().select('topic').sort('-created').exec((err, topics) => {
+  TopicModel.find().select('topic').sort('topic').exec((err, topics) => {
     if (err) return handleError(err);
     res.render('topics', {
       currentURL: '/topics',
