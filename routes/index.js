@@ -23,12 +23,14 @@ router.get('/topics', function (req, res, next) {
 
 });
 
+// Show new topic form
 router.get('/new-topic', function (req, res, next) {
   res.render('new-topic', {
     currentURL: "/new-topic"
   })
 })
 
+// Create new topics with data from form
 router.post('/new-topic', function (req, res, next) {
   var topic = req.body.topic;
   // Create a new topic with TopicModel
