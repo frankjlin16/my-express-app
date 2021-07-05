@@ -2,3 +2,7 @@ extends layout.pug
 
 block content 
   h1.text-center New Topic
+  form(action="/new-topic" method="post")
+  p Topic Name:
+    input(type="text" name="topic" placeholder="Untitled")
+  input(type="submit")
