@@ -13,13 +13,15 @@ router.get('/', function (req, res, next) {
 // Show all topics
 router.get('/topics', function (req, res, next) {
 
-  var topics = TopicModel.find();
-  res.render('topics', {
-    currentURL: '/topics',
-    topics: topics
-  })
-});
+  TopicModel.find().select('topic').sort('-created').exec((err, topics) => {
+    if (err) return handleError(err);
+    res.render('topics', {
+      currentURL: '/topics',
+      topics: topics
+    })
+  });
 
+});
 
 router.get('/new-topic', function (req, res, next) {
   res.render('new-topic', {
@@ -28,7 +30,15 @@ router.get('/new-topic', function (req, res, next) {
 })
 
 router.post('/new-topic', function (req, res, next) {
-  res.send('Got a POST request');
+  var topic = req.body.topic;
+  // Create a new topic with TopicModel
+  TopicModel.create({
+    topic: topic
+  }, (err, instance) => {
+    if (err) return handleError(err);
+    console.log('Topic created successfully')
+  })
+  res.redirect('/topics');
 });
 
 module.exports = router;
