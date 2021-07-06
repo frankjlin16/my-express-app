@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
+
+// Import models
 var TopicModel = require('../models/topics')
+var EntryModel = require('../models/entries')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -24,14 +27,19 @@ router.get('/topics', function (req, res, next) {
 
 // Show particular topic
 router.get('/topics/:topic', function (req, res, next) {
-  res.send(req.params.topic);
+
+  EntryModel.find().sort('-dateCreated').exec((err, entries) => {
+    if (err) return handleError(err);
+    res.render('topic', {
+      topic: req.params.topic,
+      entries: entries
+    });
+  })
 })
 
 // Show new topic form
 router.get('/new-topic', function (req, res, next) {
-  res.render('new-topic', {
-    currentURL: "/new-topic"
-  })
+  res.render('new-topic')
 })
 
 // Create new topics with data from form
