@@ -1,0 +1,15 @@
+extends layout.pug 
+
+block content
+  h1.text-center New Entry
+  .card.m-3
+    .card-body
+      form(action="/new-entry" method="post")
+        .mb-3.form-floating
+          input.form-control(type="text" id="titleInput" name="title" placeholder="Untitled Entry")
+          label(for="titleInput") Title
+        <div class="form-floating mb-3">
+          <textarea class="form-control" name="content" placeholder="Entry content goes here..." id="floatingTextarea2" style="height: 20em"></textarea>
+          <label for="floatingTextarea2">Content</label>
+        </div>
+        button.btn.btn-primary(type="submit") Submit
