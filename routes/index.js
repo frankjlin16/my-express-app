@@ -55,4 +55,14 @@ router.post('/new-topic', function (req, res, next) {
   res.redirect('/topics');
 });
 
+// Show new entry form
+router.get('/new-entry', function (req, res) {
+  res.render('new-entry');
+});
+
+// Create new entry with data from form
+router.post('/new-entry', function (req, res) {
+  
+})
+
 module.exports = router;
