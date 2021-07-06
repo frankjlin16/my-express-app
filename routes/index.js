@@ -22,6 +22,11 @@ router.get('/topics', function (req, res, next) {
   });
 });
 
+// Show particular topic
+router.get('/topics/:topic', function (req, res, next) {
+  res.send(req.params.topic);
+})
+
 // Show new topic form
 router.get('/new-topic', function (req, res, next) {
   res.render('new-topic', {
