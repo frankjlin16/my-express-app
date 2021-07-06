@@ -57,12 +57,18 @@ router.post('/new-topic', function (req, res, next) {
 
 // Show new entry form
 router.get('/new-entry', function (req, res) {
-  res.render('new-entry', {currentURL: '/new-entry'});
+  TopicModel.find().select('topic').sort('topic').exec((err, topics) => {
+    if (err) return handleError(err);
+    res.render('new-entry', {
+      currentURL: '/new-entry',
+      topics: topics
+    })
+  });
 });
 
 // Create new entry with data from form
 router.post('/new-entry', function (req, res) {
-  
+  res.send("Recieved new entry post request");
 })
 
 module.exports = router;
