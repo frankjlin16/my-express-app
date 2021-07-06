@@ -26,9 +26,13 @@ router.get('/topics', function (req, res, next) {
 });
 
 // Show particular topic
-router.get('/topics/:topic', function (req, res, next) {
+router.get('/topics/:topic', async function (req, res, next) {
 
-  EntryModel.find().sort('-dateCreated').exec((err, entries) => {
+  var topic = await TopicModel.findOne({
+    topic: req.params.topic
+  }).exec();
+
+  EntryModel.find({topic: topic}).populate('topic').sort('-dateCreated').exec((err, entries) => {
     if (err) return handleError(err);
     res.render('topic', {
       topic: req.params.topic,
@@ -67,8 +71,21 @@ router.get('/new-entry', function (req, res) {
 });
 
 // Create new entry with data from form
-router.post('/new-entry', function (req, res) {
-  res.send("Recieved new entry post request");
+router.post('/new-entry', async function (req, res) {
+  var title = req.body.title;
+  var content = req.body.content;
+  var topicName = req.body.topic;
+  var topic = await TopicModel.findOne({topic: topicName}).exec();
+
+  await EntryModel.create({
+    title: title,
+    content: content,
+    topic: topic._id
+  }, (err, instance) => {
+    if (err) return handleError(err);
+    console.log('Entry created successfully')
+  })
+  res.redirect('/topics/' + topicName)
 })
 
 module.exports = router;
