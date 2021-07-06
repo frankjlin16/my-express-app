@@ -12,8 +12,8 @@ block content
           <textarea class="form-control" name="content" placeholder="Entry content goes here..." id="floatingTextarea2" style="height: 20em"></textarea>
           <label for="floatingTextarea2">Content</label>
         </div>
-        select.form-select.mb-3
-          option(selected) Select a topic
+        select.form-select.mb-3(name="topic")
+          option(selected value="null") Select a topic
           each topic in topics
-            option(value=topic)= topic.topic
+            option(value=topic.topic)= topic.topic
         button.btn.btn-primary(type="submit") Submit
