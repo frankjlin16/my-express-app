@@ -11,4 +11,5 @@ block content
   .card.m-3
     ul.list-group.list-group-flush
       each topic in topics
-        li.list-group-item= topic.topic
+        - var topicName = topic.topic;
+        a.list-group-item.list-group-item-action(href="/topics/" + topicName)= topic.topic
