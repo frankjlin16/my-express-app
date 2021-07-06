@@ -57,7 +57,7 @@ router.post('/new-topic', function (req, res, next) {
 
 // Show new entry form
 router.get('/new-entry', function (req, res) {
-  res.render('new-entry');
+  res.render('new-entry', {currentURL: '/new-entry'});
 });
 
 // Create new entry with data from form
