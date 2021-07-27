@@ -32,7 +32,9 @@ router.get('/topics/:topic', async function (req, res, next) {
     topic: req.params.topic
   }).exec();
 
-  EntryModel.find({topic: topic}).populate('topic').sort('-dateCreated').exec((err, entries) => {
+  EntryModel.find({
+    topic: topic
+  }).populate('topic').sort('-dateCreated').exec((err, entries) => {
     if (err) return handleError(err);
     res.render('topic', {
       topic: req.params.topic,
@@ -75,7 +77,9 @@ router.post('/new-entry', async function (req, res) {
   var title = req.body.title;
   var content = req.body.content;
   var topicName = req.body.topic;
-  var topic = await TopicModel.findOne({topic: topicName}).exec();
+  var topic = await TopicModel.findOne({
+    topic: topicName
+  }).exec();
 
   await EntryModel.create({
     title: title,
@@ -91,7 +95,9 @@ router.post('/new-entry', async function (req, res) {
 router.get('/:topic/:id', async function (req, res) {
   var entry = await EntryModel.findById(req.params.id);
 
-  res.send(entry.title);
+  res.render('entry', {
+    entry: entry
+  })
 })
 
 module.exports = router;
