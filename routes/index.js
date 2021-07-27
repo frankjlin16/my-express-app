@@ -88,4 +88,10 @@ router.post('/new-entry', async function (req, res) {
   res.redirect('/topics/' + topicName)
 })
 
+router.get('/:topic/:id', async function (req, res) {
+  var entry = await EntryModel.findById(req.params.id);
+
+  res.send(entry.title);
+})
+
 module.exports = router;
